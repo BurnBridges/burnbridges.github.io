@@ -28,7 +28,7 @@ function toggleItem(btn, itemId, price) {
         items.splice(index, 1);
         btn.classList.remove('added-to-cart');
         btn.innerText = "Добавить в корзину";
-        let totalPrice = items.reduce((total, item) => total + item.prirce, 0);
+        let totalPrice = items.reduce((total, item) => total + item.price, 0);
         if (totalPrice > 0) {
             tg.MainButton.setText(`Общая цена товаров: ${totalPrice}`);
             if (!tg.MainButton.isVisible) {
