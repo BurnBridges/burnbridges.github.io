@@ -7,9 +7,9 @@ tg.MainButton.color = '#2cab37';
 
 let items = [];
 
-function toggleItem(btn, itemId, price){
-    let item = items.find(i => i.id ===itemId);
-    if(!item) {
+function toggleItem(btn, itemId, price) {
+    let item = items.find(i => i.id === itemId);
+    if (!item) {
         let newItem = { id: itemId, price: price };
         items.push(newItem);
         btn.classList.add('added-to-cart');
@@ -43,7 +43,7 @@ function toggleItem(btn, itemId, price){
 
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
     let data = {
-        items:items,
+        items: items,
         totalPrice: calculateTotalPrice()
     };
     tg.sendData(JSON.stringify(data));
