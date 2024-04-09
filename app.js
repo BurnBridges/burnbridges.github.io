@@ -31,6 +31,15 @@ function updateTotalPrice() {
     }
 }
 
+Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    let data = {
+        items: items,
+        totalPrice: calculateTotalPrice()
+    };
+    tg.sendData(JSON.stringify(data));
+});
+
+
 function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
 }
