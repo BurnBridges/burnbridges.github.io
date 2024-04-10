@@ -27,6 +27,11 @@ body {
     margin-bottom: -25px;
 }
 
+.gif {
+	width: 150px;
+    margin-bottom: -25px;
+}
+
 .item {
 	text-align: center;
 }
