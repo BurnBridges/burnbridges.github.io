@@ -12,7 +12,7 @@ function toggleItem(btn, itemId, price) {
     if (itemIndex === -1) {
         items.push({ id: itemId, price: price });
         btn.classList.add('added-to-cart');
-        btn.innerText = "Удалить из корзины";
+        btn.innerText = "Удалить";
     } else {
         items.splice(itemIndex, 1);
         btn.classList.remove('added-to-cart');
