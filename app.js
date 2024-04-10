@@ -16,7 +16,7 @@ function toggleItem(btn, itemId, price) {
     } else {
         items.splice(itemIndex, 1);
         btn.classList.remove('added-to-cart');
-        btn.innerText = "Добавить в корзину";
+        btn.innerText = "Добавить";
     }
     updateTotalPrice();
 }
