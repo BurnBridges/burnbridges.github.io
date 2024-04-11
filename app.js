@@ -19,8 +19,12 @@ function toggleItem(btn, itemId, price) {
     updateTotalPrice();
 }
 
-// Обработчик для нажатия кнопки "Продолжить" и открытия всплывающего окна с формой ввода адреса
+// Изменяем функцию для открытия всплывающего окна с формой ввода адреса
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    openAddressPopup();
+});
+
+function openAddressPopup() {
     tg.showPrompt("Введите ваш адрес:", {
         placeholder: 'Введите ваш адрес',
         okButtonText: 'Отправить',
@@ -28,15 +32,25 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
     }).then((result) => {
         if (result && result.text) {
             let address = result.text;
+            // Отправляем данные на сервер вместе с адресом
             let data = {
                 items: items,
-                totalPrice: calculateTotalPrice(),
                 address: address
             };
             tg.sendData(JSON.stringify(data));
         }
     });
-});
+}
+
+function updateTotalPrice() {
+    let totalPrice = calculateTotalPrice();
+    if (totalPrice > 0) {
+        tg.MainButton.setText(`Общая цена товаров: ${totalPrice}`);
+        tg.MainButton.show();
+    } else {
+        tg.MainButton.hide();
+    }
+}
 
 function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
