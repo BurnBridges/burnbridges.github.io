@@ -7,10 +7,6 @@ tg.MainButton.color = '#2cab37';
 
 let items = [];
 
-var addButtons = document.querySelectorAll('.btn');
-
-
-
 function toggleItem(btn, itemId, price) {
     let itemIndex = items.findIndex(item => item.id === itemId);
     if (itemIndex === -1) {
@@ -35,18 +31,13 @@ function updateTotalPrice() {
     }
 }
 
-
-// JavaScript код для отправки данных о заказе в телеграм
-let addressInput = document.getElementById("addressInput").value; // Получаем значение введенного адреса
-
-let data = {
-    items: items,
-    totalPrice: calculateTotalPrice(),
-    address: addressInput  // Добавляем адрес в данные о заказе
-};
-
-// Отправляем данные о заказе в чат телеграма
-Telegram.WebApp.sendData(JSON.stringify(data));
+Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    let data = {
+        items: items,
+        totalPrice: calculateTotalPrice()
+    };
+    tg.sendData(JSON.stringify(data));
+});
 
 
 function calculateTotalPrice() {
@@ -76,4 +67,3 @@ document.getElementById("btn5").addEventListener('click', function(){
 document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
 });
-
