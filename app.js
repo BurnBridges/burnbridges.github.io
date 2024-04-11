@@ -32,12 +32,24 @@ function updateTotalPrice() {
 }
 
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
-    let data = {
-        items: items,
-        totalPrice: calculateTotalPrice()
-    };
-    tg.sendData(JSON.stringify(data));
-})
+    let totalPrice = calculateTotalPrice();
+    let message = `Общая цена товаров: ${totalPrice}Р\n\n`;
+    items.forEach(item => {
+        let position = item.id.replace('item', '');
+        message += `Позиция ${position}: ${item.price}Р\n`;
+    });
+    message += '\nПожалуйста, введите ваш адрес:';
+    tg.showPrompt(message, {
+        placeholder: 'Введите ваш адрес',
+        okButtonText: 'Отправить',
+        cancelButtonText: 'Отмена'
+    }).then((result) => {
+        if (result && result.text) {
+            let address = result.text;
+            // Далее вы можете отправить адрес на сервер или выполнить другие действия
+        }
+    });
+});
 
 
 function calculateTotalPrice() {
