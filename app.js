@@ -31,13 +31,21 @@ function updateTotalPrice() {
     }
 }
 
+// Функция для обработки события нажатия на главную кнопку веб-приложения Telegram
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
-    let data = {
-        items: items,
-        totalPrice: calculateTotalPrice()
-    };
-    tg.sendData(JSON.stringify(data));
-})
+    // Отправка запроса на отображение поля ввода адреса
+    tg.showTextInput("Введите ваш адрес:", "", function(address) {
+        if (address) {
+            let data = {
+                items: items,
+                totalPrice: calculateTotalPrice(),
+                address: address // Добавление адреса, введенного пользователем, в данные заказа
+            };
+            // Отправка данных заказа на сервер
+            sendOrder(data);
+        }
+    });
+});
 
 
 function calculateTotalPrice() {
