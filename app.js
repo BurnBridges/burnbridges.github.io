@@ -39,6 +39,7 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
         message += `Позиция ${position}: ${item.price}Р\n`;
     });
     message += '\nПожалуйста, введите ваш адрес:';
+    
     tg.showPrompt(message, {
         placeholder: 'Введите ваш адрес',
         okButtonText: 'Отправить',
@@ -46,7 +47,29 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
     }).then((result) => {
         if (result && result.text) {
             let address = result.text;
-            // Далее вы можете отправить адрес на сервер или выполнить другие действия
+            // Отправляем данные на сервер
+            let data = {
+                items: items,
+                totalPrice: totalPrice,
+                address: address
+            };
+            fetch('адрес_обработчика_на_сервере', {
+                method: 'POST',
+                body: JSON.stringify(data),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (response.ok) {
+                    console.log('Данные успешно отправлены на сервер');
+                    // Дополнительные действия, если необходимо
+                } else {
+                    console.error('Ошибка при отправке данных на сервер');
+                    // Обработка ошибки
+                }
+            }).catch(error => {
+                console.error('Ошибка:', error);
+            });
         }
     });
 });
