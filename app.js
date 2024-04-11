@@ -7,10 +7,6 @@ tg.MainButton.color = '#2cab37';
 
 let items = [];
 
-var addButtons = document.querySelectorAll('.btn');
-
-
-
 function toggleItem(btn, itemId, price) {
     let itemIndex = items.findIndex(item => item.id === itemId);
     if (itemIndex === -1) {
@@ -34,8 +30,6 @@ function updateTotalPrice() {
         tg.MainButton.hide();
     }
 }
-
-
 
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
     let data = {
@@ -73,4 +67,3 @@ document.getElementById("btn5").addEventListener('click', function(){
 document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
 });
-
