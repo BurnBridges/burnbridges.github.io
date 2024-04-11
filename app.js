@@ -7,6 +7,10 @@ tg.MainButton.color = '#2cab37';
 
 let items = [];
 
+var addButtons = document.querySelectorAll('.btn');
+
+
+
 function toggleItem(btn, itemId, price) {
     let itemIndex = items.findIndex(item => item.id === itemId);
     if (itemIndex === -1) {
@@ -31,72 +35,17 @@ function updateTotalPrice() {
     }
 }
 
-// Функция для отображения информации о заказе
-function showOrderInfo() {
-    document.getElementById('order-summary').style.display = 'block'; // Показываем блок с информацией о заказе
-
-    // Очищаем предыдущий список товаров
-    document.getElementById('order-items').innerHTML = '';
-
-    // Создаем новый список товаров
-    items.forEach(item => {
-        let listItem = document.createElement('li');
-        listItem.textContent = `${item.id} - ${item.price}Р`;
-        document.getElementById('order-items').appendChild(listItem);
-    });
-
-    // Обновляем общую сумму
-    updateTotalPrice();
-}
-
-// Функция для отображения формы оплаты
-function showPaymentForm(totalPrice) {
-    // Скрываем блок с информацией о заказе
-    document.getElementById('order-summary').style.display = 'none';
-
-    // Показываем блок с формой оплаты
-    document.getElementById('payment-form').style.display = 'block';
-    // Устанавливаем сумму заказа в форме оплаты
-    document.getElementById('payment-total-price').textContent = `Сумма к оплате: ${totalPrice}Р`;
-}
 
 
-// Функция для обработки отправки формы оплаты
-document.getElementById('payment-form').addEventListener('submit', function(event) {
-    event.preventDefault(); // Отменяем стандартное поведение формы
-
-    // Получаем данные из формы
-    let name = document.getElementById('name').value;
-    let address = document.getElementById('address').value;
-    let phone = document.getElementById('phone').value;
-    let paymentMethod = document.getElementById('payment-method').value;
-
-    // Формируем сообщение о заказе
-    let orderMessage = `Заказ: \n`;
-    items.forEach(item => {
-        orderMessage += `${item.id} - ${item.price}Р\n`;
-    });
-    orderMessage += `\n`;
-    orderMessage += `Имя: ${name}\n`;
-    orderMessage += `Адрес: ${address}\n`;
-    orderMessage += `Телефон: ${phone}\n`;
-    orderMessage += `Способ оплаты: ${paymentMethod}\n`;
-    orderMessage += `Общая сумма: ${calculateTotalPrice()}Р`;
-
-    // Отправляем сообщение в ваш чат
-    sendMessage(orderMessage);
-
-    // После успешной оплаты можно показать сообщение об успешной оплате или перенаправить пользователя на страницу подтверждения заказа
-    alert('Спасибо за заказ!');
-
-    // Очищаем корзину и скрываем форму оплаты
-    items = [];
-    updateTotalPrice();
-    document.getElementById('order-summary').style.display = 'none';
-    document.getElementById('payment-form').style.display = 'none';
+Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    let data = {
+        items: items,
+        totalPrice: calculateTotalPrice()
+    };
+    tg.sendData(JSON.stringify(data));
 });
 
-// Функция для подсчета общей суммы заказа
+
 function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
 }
@@ -123,4 +72,15 @@ document.getElementById("btn5").addEventListener('click', function(){
 
 document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
+});
+
+// Добавляем обработчик события для кнопки "Общая цена товаров"
+document.getElementById('total-price').addEventListener('click', function() {
+    // Отображаем форму для ввода данных
+    document.getElementById('order-form').style.display = 'block';
+});
+
+// Добавляем обработчик события для отправки формы заказа
+document.getElementById('submit-order').addEventListener('click', function() {
+    // Здесь можно добавить логику отправки данных на сервер Python
 });
