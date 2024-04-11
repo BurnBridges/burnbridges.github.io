@@ -7,40 +7,32 @@ tg.MainButton.color = '#2cab37';
 
 let items = [];
 
-// Функция для отображения формы ввода адреса
-function showAddressForm() {
-    let addressForm = `
-        <form id="addressForm">
-            <label for="address">Введите ваш адрес:</label>
-            <input type="text" id="address" name="address">
-            <button type="submit">Отправить</button>
-        </form>
-    `;
-    tg.MainButton.setText(addressForm);
-}
+// Функция для создания формы ввода адреса как всплывающего окна
+function createAddressForm() {
+    // Создаем элементы формы
+    let form = document.createElement('form');
+    form.id = 'addressForm';
 
-// Обработка события нажатия на главную кнопку веб-приложения Telegram
-Telegram.WebApp.onEvent('mainButtonClicked', function(){
-    if (items.length === 0) {
-        // Если корзина пуста, показываем сообщение об этом
-        tg.sendMessage("Ваша корзина пуста. Пожалуйста, добавьте товары.");
-    } else {
-        // Если в корзине есть товары, отображаем кнопку "Продолжить"
-        tg.MainButton.setText("Продолжить");
-        tg.MainButton.show();
-    }
-});
+    let label = document.createElement('label');
+    label.for = 'address';
+    label.innerText = 'Введите ваш адрес:';
+    form.appendChild(label);
 
-// Обработка события нажатия на кнопку "Продолжить"
-Telegram.WebApp.onEvent('mainButtonClicked', function(){
-    showAddressForm();
-});
+    let input = document.createElement('input');
+    input.type = 'text';
+    input.id = 'address';
+    input.name = 'address';
+    form.appendChild(input);
 
-// Обработка события отправки формы адреса
-document.addEventListener('submit', function(event) {
-    event.preventDefault();
-    if (event.target.id === 'addressForm') {
-        let address = event.target.elements.address.value;
+    let submitButton = document.createElement('button');
+    submitButton.type = 'submit';
+    submitButton.innerText = 'Отправить';
+    form.appendChild(submitButton);
+
+    // Добавляем обработчик события отправки формы
+    form.addEventListener('submit', function(event) {
+        event.preventDefault();
+        let address = input.value;
         if (address) {
             let data = {
                 items: items,
@@ -50,9 +42,24 @@ document.addEventListener('submit', function(event) {
             // Отправка данных заказа на сервер
             tg.sendData(JSON.stringify(data));
         }
+    });
+
+    return form;
+}
+
+// Обработка события нажатия на главную кнопку веб-приложения Telegram
+Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    if (items.length === 0) {
+        // Если корзина пуста, показываем сообщение об этом
+        tg.sendMessage("Ваша корзина пуста. Пожалуйста, добавьте товары.");
+    } else {
+        // Если в корзине есть товары, отображаем кнопку "Продолжить"
+        let addressForm = createAddressForm();
+        tg.MainButton.setText(addressForm);
     }
 });
 
+// Функция для добавления или удаления товара из корзины
 function toggleItem(btn, itemId, price) {
     let itemIndex = items.findIndex(item => item.id === itemId);
     if (itemIndex === -1) {
@@ -67,6 +74,7 @@ function toggleItem(btn, itemId, price) {
     updateTotalPrice();
 }
 
+// Функция для обновления общей стоимости товаров
 function updateTotalPrice() {
     let totalPrice = calculateTotalPrice();
     if (totalPrice > 0) {
@@ -76,10 +84,12 @@ function updateTotalPrice() {
     }
 }
 
+// Функция для вычисления общей стоимости товаров в корзине
 function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
 }
 
+// Обработчики событий нажатия кнопок товаров
 document.getElementById("btn1").addEventListener('click', function(){
     toggleItem(this, "item1" , 600);
 });
