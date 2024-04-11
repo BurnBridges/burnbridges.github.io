@@ -21,58 +21,40 @@ function toggleItem(btn, itemId, price) {
     updateTotalPrice();
 }
 
-function updateTotalPrice() {
-    let totalPrice = calculateTotalPrice();
-    if (totalPrice > 0) {
-        tg.MainButton.setText(`Общая цена товаров: ${totalPrice}`);
-        tg.MainButton.show();
-    } else {
-        tg.MainButton.hide();
-    }
-}
-
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
-    let totalPrice = calculateTotalPrice();
-    let message = `Общая цена товаров: ${totalPrice}Р\n\n`;
-    items.forEach(item => {
-        let position = item.id.replace('item', '');
-        message += `Позиция ${position}: ${item.price}Р\n`;
-    });
-    message += '\nПожалуйста, введите ваш адрес:';
-    
-    tg.showPrompt(message, {
+    openAddressPopup();
+});
+
+function openAddressPopup() {
+    tg.showPrompt("Введите ваш адрес:", {
         placeholder: 'Введите ваш адрес',
         okButtonText: 'Отправить',
         cancelButtonText: 'Отмена'
     }).then((result) => {
         if (result && result.text) {
             let address = result.text;
-            // Отправляем данные на сервер
+            // Отправляем данные на сервер вместе с адресом
             let data = {
                 items: items,
-                totalPrice: totalPrice,
+                totalPrice: calculateTotalPrice(),
                 address: address
             };
-            fetch('https://burnbridges.github.io/', {
-                method: 'POST',
-                body: JSON.stringify(data),
-                headers: {
-                    'Content-Type': 'application/json'
-                }
-            }).then(response => {
-                if (response.ok) {
-                    console.log('Данные успешно отправлены на сервер');
-                    // Дополнительные действия, если необходимо
-                } else {
-                    console.error('Ошибка при отправке данных на сервер');
-                    // Обработка ошибки
-                }
-            }).catch(error => {
-                console.error('Ошибка:', error);
-            });
+            tg.sendData(JSON.stringify(data));
         }
     });
-});
+}
+
+// Изменим текст и стиль кнопки на "Продолжить"
+tg.MainButton.setText('Продолжить');
+tg.MainButton.textColor = '#FFFFFF';
+tg.MainButton.color = '#2cab37';
+Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    let data = {
+        items: items,
+        totalPrice: calculateTotalPrice()
+    };
+    tg.sendData(JSON.stringify(data));
+})
 
 
 function calculateTotalPrice() {
