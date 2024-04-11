@@ -1,7 +1,5 @@
 let tg = window.Telegram.WebApp;
-
 tg.expand();
-
 tg.MainButton.textColor = '#FFFFFF';
 tg.MainButton.color = '#2cab37';
 
@@ -21,11 +19,8 @@ function toggleItem(btn, itemId, price) {
     updateTotalPrice();
 }
 
+// Обработчик для нажатия кнопки "Продолжить" и открытия всплывающего окна с формой ввода адреса
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
-    openAddressPopup();
-});
-
-function openAddressPopup() {
     tg.showPrompt("Введите ваш адрес:", {
         placeholder: 'Введите ваш адрес',
         okButtonText: 'Отправить',
@@ -33,7 +28,6 @@ function openAddressPopup() {
     }).then((result) => {
         if (result && result.text) {
             let address = result.text;
-            // Отправляем данные на сервер вместе с адресом
             let data = {
                 items: items,
                 totalPrice: calculateTotalPrice(),
@@ -42,25 +36,13 @@ function openAddressPopup() {
             tg.sendData(JSON.stringify(data));
         }
     });
-}
-
-// Изменим текст и стиль кнопки на "Продолжить"
-tg.MainButton.setText('Продолжить');
-tg.MainButton.textColor = '#FFFFFF';
-tg.MainButton.color = '#2cab37';
-Telegram.WebApp.onEvent('mainButtonClicked', function(){
-    let data = {
-        items: items,
-        totalPrice: calculateTotalPrice()
-    };
-    tg.sendData(JSON.stringify(data));
-})
-
+});
 
 function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
 }
 
+// Добавим обработчики для нажатия кнопок "Добавить" для каждого товара
 document.getElementById("btn1").addEventListener('click', function(){
     toggleItem(this, "item1" , 600);
 });
