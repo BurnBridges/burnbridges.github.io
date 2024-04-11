@@ -96,3 +96,4 @@ document.getElementById("btn5").addEventListener('click', function(){
 
 document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
+});
