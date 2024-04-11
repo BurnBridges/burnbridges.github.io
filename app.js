@@ -53,7 +53,7 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
                 totalPrice: totalPrice,
                 address: address
             };
-            fetch('адрес_обработчика_на_сервере', {
+            fetch('https://burnbridges.github.io/', {
                 method: 'POST',
                 body: JSON.stringify(data),
                 headers: {
