@@ -19,15 +19,21 @@ function showAddressForm() {
     tg.MainButton.setText(addressForm);
 }
 
-// Функция для обработки события нажатия на главную кнопку веб-приложения Telegram
+// Обработка события нажатия на главную кнопку веб-приложения Telegram
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
     if (items.length === 0) {
         // Если корзина пуста, показываем сообщение об этом
         tg.sendMessage("Ваша корзина пуста. Пожалуйста, добавьте товары.");
     } else {
-        // Если в корзине есть товары, показываем форму ввода адреса
-        showAddressForm();
+        // Если в корзине есть товары, отображаем кнопку "Продолжить"
+        tg.MainButton.setText("Продолжить");
+        tg.MainButton.show();
     }
+});
+
+// Обработка события нажатия на кнопку "Продолжить"
+Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    showAddressForm();
 });
 
 // Обработка события отправки формы адреса
