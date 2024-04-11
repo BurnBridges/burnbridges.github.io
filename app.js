@@ -24,8 +24,12 @@ function toggleItem(btn, itemId, price) {
 function updateTotalPrice() {
     let totalPrice = calculateTotalPrice();
     if (totalPrice > 0) {
-        tg.MainButton.setText(`Общая цена товаров: ${totalPrice}`);
+        // Переход на следующую страницу при нажатии на кнопку общей цены товаров
+        tg.MainButton.setText(`Перейти к оформлению заказа`);
         tg.MainButton.show();
+        tg.MainButton.on('click', function() {
+            window.location.href = "https://burnbridges.github.io/address.html";
+        });
     } else {
         tg.MainButton.hide();
     }
