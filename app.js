@@ -74,13 +74,3 @@ document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
 });
 
-// Добавляем обработчик события для кнопки "Общая цена товаров"
-document.getElementById('total-price').addEventListener('click', function() {
-    // Отображаем форму для ввода данных
-    document.getElementById('order-form').style.display = 'block';
-});
-
-// Добавляем обработчик события для отправки формы заказа
-document.getElementById('submit-order').addEventListener('click', function() {
-    // Здесь можно добавить логику отправки данных на сервер Python
-});
