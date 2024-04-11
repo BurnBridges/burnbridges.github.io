@@ -10,21 +10,13 @@ let items = [];
 function toggleItem(btn, itemId, price) {
     let itemIndex = items.findIndex(item => item.id === itemId);
     if (itemIndex === -1) {
-        items.push({ id: itemId, price: price, quantity: 1 }); // Добавляем новый товар с количеством 1
-        btn.innerHTML = `
-            <button class="btn" id="btn-plus-${itemId}">+</button>
-            <span>${items[items.length - 1].quantity}</span>
-            <button class="btn" id="btn-minus-${itemId}">-</button>
-        `;
-        document.getElementById(`btn-plus-${itemId}`).addEventListener('click', function(){
-            increaseQuantity(itemId);
-        });
-        document.getElementById(`btn-minus-${itemId}`).addEventListener('click', function(){
-            decreaseQuantity(itemId);
-        });
+        items.push({ id: itemId, price: price });
+        btn.classList.add('added-to-cart');
+        btn.innerText = "Удалить";
     } else {
         items.splice(itemIndex, 1);
-        btn.innerHTML = `<button class="btn" id="btn-add">Добавить</button>`;
+        btn.classList.remove('added-to-cart');
+        btn.innerText = "Добавить";
     }
     updateTotalPrice();
 }
@@ -49,7 +41,7 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
 
 
 function calculateTotalPrice() {
-    return items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return items.reduce((total, item) => total + item.price, 0);
 }
 
 document.getElementById("btn1").addEventListener('click', function(){
@@ -75,4 +67,3 @@ document.getElementById("btn5").addEventListener('click', function(){
 document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
 });
-
