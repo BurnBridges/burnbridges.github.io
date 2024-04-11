@@ -7,6 +7,46 @@ tg.MainButton.color = '#2cab37';
 
 let items = [];
 
+// Функция для отображения формы ввода адреса
+function showAddressForm() {
+    let addressForm = `
+        <form id="addressForm">
+            <label for="address">Введите ваш адрес:</label>
+            <input type="text" id="address" name="address">
+            <button type="submit">Отправить</button>
+        </form>
+    `;
+    tg.MainButton.setText(addressForm);
+}
+
+// Функция для обработки события нажатия на главную кнопку веб-приложения Telegram
+Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    if (items.length === 0) {
+        // Если корзина пуста, показываем сообщение об этом
+        tg.sendMessage("Ваша корзина пуста. Пожалуйста, добавьте товары.");
+    } else {
+        // Если в корзине есть товары, показываем форму ввода адреса
+        showAddressForm();
+    }
+});
+
+// Обработка события отправки формы адреса
+document.addEventListener('submit', function(event) {
+    event.preventDefault();
+    if (event.target.id === 'addressForm') {
+        let address = event.target.elements.address.value;
+        if (address) {
+            let data = {
+                items: items,
+                totalPrice: calculateTotalPrice(),
+                address: address
+            };
+            // Отправка данных заказа на сервер
+            tg.sendData(JSON.stringify(data));
+        }
+    }
+});
+
 function toggleItem(btn, itemId, price) {
     let itemIndex = items.findIndex(item => item.id === itemId);
     if (itemIndex === -1) {
@@ -24,29 +64,11 @@ function toggleItem(btn, itemId, price) {
 function updateTotalPrice() {
     let totalPrice = calculateTotalPrice();
     if (totalPrice > 0) {
-        tg.MainButton.setText(`Общая цена товаров: ${totalPrice}`);
         tg.MainButton.show();
     } else {
         tg.MainButton.hide();
     }
 }
-
-// Функция для обработки события нажатия на главную кнопку веб-приложения Telegram
-Telegram.WebApp.onEvent('mainButtonClicked', function(){
-    // Отправка запроса на отображение поля ввода адреса
-    tg.showTextInput("Введите ваш адрес:", "", function(address) {
-        if (address) {
-            let data = {
-                items: items,
-                totalPrice: calculateTotalPrice(),
-                address: address // Добавление адреса, введенного пользователем, в данные заказа
-            };
-            // Отправка данных заказа на сервер
-            sendOrder(data);
-        }
-    });
-});
-
 
 function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
@@ -74,4 +96,3 @@ document.getElementById("btn5").addEventListener('click', function(){
 
 document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
-});
