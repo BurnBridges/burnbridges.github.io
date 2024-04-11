@@ -36,24 +36,9 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
         items: items,
         totalPrice: calculateTotalPrice()
     };
-    // Отправляем данные на сервер, а затем перенаправляем пользователя на новую страницу
-    fetch('https://burnbridges.github.io/address.html', {
-        method: 'POST',
-        body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json'
-        }
-    }).then(response => {
-        if (response.ok) {
-            window.location.href = "https://burnbridges.github.io/address.html";
-        } else {
-            console.error('Ошибка при отправке данных на сервер');
-            // Здесь можно обработать ошибку, например, показать пользователю сообщение об ошибке
-        }
-    }).catch(error => {
-        console.error('Ошибка:', error);
-    });
-});
+    tg.sendData(JSON.stringify(data));
+})
+
 
 function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
