@@ -45,6 +45,31 @@
                     <p>juice - <b>610Р</b></p>
                     <button class="btn" id="btn6">Добавить</button>
                 </div>
+
+                <!-- Элементы для отображения заказа и формы оплаты -->
+                <div id="order-summary" style="display: none;">
+                    <h2>Ваш заказ</h2>
+                    <ul id="order-items"></ul>
+                    <p id="total-price">Общая сумма: 0Р</p>
+                    <button id="view-order">Просмотр заказа</button>
+                </div>
+                <div id="payment-form" style="display: none;">
+                    <h2>Оплата</h2>
+                    <form id="payment-form">
+                        <label for="name">Имя:</label>
+                        <input type="text" id="name" name="name" required><br>
+                        <label for="address">Адрес:</label>
+                        <input type="text" id="address" name="address" required><br>
+                        <label for="phone">Телефон:</label>
+                        <input type="tel" id="phone" name="phone" required><br>
+                        <label for="payment-method">Способ оплаты:</label>
+                        <select id="payment-method" name="payment-method" required>
+                            <option value="cash">Наличные</option>
+                            <option value="card">Карта</option>
+                        </select><br>
+                        <button type="submit" id="pay">Оплатить</button>
+                    </form>
+                </div>
             </div>
 	    </div>		
 	</div>
