@@ -23,8 +23,8 @@ function toggleItem(btn, itemId, price) {
 
 function updateTotalPrice() {
     let totalPrice = calculateTotalPrice();
-    if (totalPrice > 0) {
-        tg.MainButton.setText(`Order view: ${totalPrice}`);
+    if (totalPrice >= 0) { // Изменение условия на больше или равно нулю
+        tg.MainButton.setText(`View order: ${totalPrice}`);
         tg.MainButton.show();
     } else {
         tg.MainButton.hide();
