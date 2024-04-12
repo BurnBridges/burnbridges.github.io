@@ -23,7 +23,15 @@ function toggleItem(btn, itemId, price) {
 
 
 
-tg.MainButton.setText('View Order');
+function updateTotalPrice() {
+    let totalPrice = calculateTotalPrice();
+    if (totalPrice > 0) {
+        tg.MainButton.setText(`View Order`);
+        tg.MainButton.show();
+    } else {
+        tg.MainButton.hide();
+    }
+}
 
 Telegram.WebApp.onEvent('mainButtonClicked', function() {
     let data = {
@@ -31,9 +39,9 @@ Telegram.WebApp.onEvent('mainButtonClicked', function() {
         totalPrice: calculateTotalPrice()
     };
     tg.sendData(JSON.stringify(data));
+    // Запускаем оплату от Telegram, например, путем перехода к команде /pay
     tg.navigateToCommand('/pay');
 });
-
 
 function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
