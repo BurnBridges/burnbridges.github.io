@@ -21,12 +21,10 @@ function toggleItem(btn, itemId, price) {
     updateTotalPrice();
 }
 
-
-
 function updateTotalPrice() {
     let totalPrice = calculateTotalPrice();
     if (totalPrice > 0) {
-        tg.MainButton.setText(`View Order`);
+        tg.MainButton.setText(`View order: ${totalPrice}`);
         tg.MainButton.show();
     } else {
         tg.MainButton.hide();
@@ -34,17 +32,31 @@ function updateTotalPrice() {
 }
 
 Telegram.WebApp.onEvent('mainButtonClicked', function() {
+    // Получаем список выбранных товаров
+    let selectedItems = getSelectedItems();
+
+    // Создаем объект с данными для отправки
     let data = {
-        items: items,
+        items: selectedItems,
         totalPrice: calculateTotalPrice()
     };
+
+    // Отправляем данные и открываем форму оплаты
     tg.sendData(JSON.stringify(data));
-    // Запускаем оплату от Telegram, например, путем перехода к команде /pay
-    tg.navigateToCommand('/pay');
+    tg.openCheckout();
 });
+
 
 function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
+}
+
+function getSelectedItems() {
+    let selectedItems = [];
+    items.forEach(item => {
+        selectedItems.push(item.id); // добавляем в список id выбранных товаров
+    });
+    return selectedItems;
 }
 
 document.getElementById("btn1").addEventListener('click', function(){
