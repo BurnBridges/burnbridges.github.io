@@ -26,7 +26,6 @@ function updateTotalPrice() {
     if (totalPrice > 0) {
         tg.MainButton.setText(`View order: ${totalPrice}`);
         tg.MainButton.show();
-        sendTotalPrice(totalPrice); // Отправляем общую сумму заказа на сервер
     } else {
         tg.MainButton.hide();
     }
@@ -83,14 +82,4 @@ function playAnimation(imgId, animationSrc) {
     setTimeout(function() {
         img.src = originalSrc; // Возвращаем изображение к первоначальному статусу
     }, 3000); // 3000 миллисекунд = 3 секунды
-}
-
-function sendTotalPrice(totalPrice) {
-    fetch('/total_price', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ totalPrice: totalPrice }),
-    });
 }
