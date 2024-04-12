@@ -44,6 +44,29 @@ function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
 }
 
+async function sendInvoice() {
+    let totalPrice = calculateTotalPrice();
+    let data = {
+        items: items,
+        totalPrice: totalPrice
+    };
+    let response = await fetch('/create_invoice', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+    });
+    if (response.ok) {
+        console.log('Invoice created successfully!');
+    } else {
+        console.error('Failed to create invoice');
+    }
+}
+
+Telegram.WebApp.onEvent('mainButtonClicked', async function(){
+    await sendInvoice();
+});
 document.getElementById("btn1").addEventListener('click', function(){
     toggleItem(this, "item1" , 600);
 });
