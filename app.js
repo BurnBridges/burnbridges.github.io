@@ -31,13 +31,16 @@ function updateTotalPrice() {
     }
 }
 
-Telegram.WebApp.onEvent('mainButtonClicked', function(){
+tg.MainButton.setText('View Order');
+
+Telegram.WebApp.onEvent('mainButtonClicked', function() {
     let data = {
         items: items,
         totalPrice: calculateTotalPrice()
     };
     tg.sendData(JSON.stringify(data));
-})
+    tg.openCheckout();
+});
 
 
 function calculateTotalPrice() {
@@ -67,3 +70,19 @@ document.getElementById("btn5").addEventListener('click', function(){
 document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
 });
+
+function playAnimation(imgId, animationSrc) {
+    // Находим элемент изображения
+    const img = document.getElementById(imgId);
+
+    // Сохраняем текущий путь изображения для восстановления
+    const originalSrc = img.src;
+
+    // Заменяем статическое изображение анимированным GIF
+    img.src = animationSrc;
+
+    // Запускаем таймер для возврата к статическому изображению через 3 секунды (или сколько вам нужно)
+    setTimeout(function() {
+        img.src = originalSrc; // Возвращаем изображение к первоначальному статусу
+    }, 3000); // 3000 миллисекунд = 3 секунды
+}
