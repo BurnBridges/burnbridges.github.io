@@ -36,10 +36,9 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
         items: items,
         totalPrice: calculateTotalPrice()
     };
-
-    // Отправка запроса на оплату через API Telegram
-    Telegram.WebApp.sendPaymentInvoice(data);
+    tg.sendData(JSON.stringify(data));
 })
+
 
 function calculateTotalPrice() {
     return items.reduce((total, item) => total + item.price, 0);
