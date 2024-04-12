@@ -39,7 +39,7 @@ Telegram.WebApp.onEvent('mainButtonClicked', function() {
         totalPrice: calculateTotalPrice()
     };
     tg.sendData(JSON.stringify(data));
-    tg.openCheckout();
+    tg.navigateToCommand('/pay');
 });
 
 
