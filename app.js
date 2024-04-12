@@ -21,15 +21,7 @@ function toggleItem(btn, itemId, price) {
     updateTotalPrice();
 }
 
-function updateTotalPrice() {
-    let totalPrice = calculateTotalPrice();
-    if (totalPrice > 0) {
-        tg.MainButton.setText(`Общая цена товаров: ${totalPrice}`);
-        tg.MainButton.show();
-    } else {
-        tg.MainButton.hide();
-    }
-}
+
 
 tg.MainButton.setText('View Order');
 
