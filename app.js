@@ -12,7 +12,6 @@ function toggleItem(btn, itemId, price) {
     if (itemIndex === -1) {
         // Если товар не найден в корзине, добавляем его с количеством 1
         items.push({ id: itemId, price: price, quantity: 1 });
-        btn.classList.add('added-to-cart'); // Добавляем класс для стилизации кнопки при добавлении товара в корзину
     } else {
         // Если товар найден в корзине, увеличиваем его количество
         items[itemIndex].quantity++;
