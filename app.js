@@ -11,12 +11,10 @@ function toggleItem(btn, itemId, price) {
     let itemIndex = items.findIndex(item => item.id === itemId);
     if (itemIndex === -1) {
         items.push({ id: itemId, price: price });
-        btn.classList.add('added-to-cart');
-        btn.innerText = "Удалить";
+        btn.classList.add('added-to-cart'); // Добавляем класс для стилизации кнопки при добавлении товара в корзину
     } else {
         items.splice(itemIndex, 1);
-        btn.classList.remove('added-to-cart');
-        btn.innerText = "Добавить";
+        btn.classList.remove('added-to-cart'); // Удаляем класс для стилизации кнопки при удалении товара из корзины
     }
     updateTotalPrice();
 }
@@ -40,7 +38,7 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
 })
 
 function calculateTotalPrice() {
-    return items.reduce((total, item) => total + item.price, 0);
+    return items.reduce((total, item) => total + item.price * parseInt(document.getElementById(item.id).querySelector('.quantity-control span').innerText), 0);
 }
 
 document.getElementById("btn1").addEventListener('click', function(){
@@ -83,3 +81,18 @@ function playAnimation(imgId, animationSrc) {
     }, 3000); // 3000 миллисекунд = 3 секунды
 }
 
+function incrementQuantity(quantityId) {
+    let quantityElement = document.getElementById(quantityId);
+    let quantity = parseInt(quantityElement.innerText);
+    quantityElement.innerText = quantity + 1;
+    updateTotalPrice(); // Обновляем общую сумму заказа при увеличении количества
+}
+
+function decrementQuantity(quantityId) {
+    let quantityElement = document.getElementById(quantityId);
+    let quantity = parseInt(quantityElement.innerText);
+    if (quantity > 0) {
+        quantityElement.innerText = quantity - 1;
+        updateTotalPrice(); // Обновляем общую сумму заказа при уменьшении количества
+    }
+}
