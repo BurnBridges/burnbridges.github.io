@@ -23,7 +23,11 @@
                 <div class="item" id="item2">
                     <img src="pizza.png" alt="" class="img" id="pizza-img">
                     <p>pizza - <b>450Р</b></p>
-                    <button class="btn" id="btn2" onclick="playAnimation('pizza-img', 'pizza-animation.gif')">Добавить</button>
+                    <div class="quantity-control">
+                        <button class="btn" id="minusBtn2" onclick="decrementQuantity('quantity2')">-</button>
+                        <span id="quantity2">0</span>
+                        <button class="btn" id="btn2" onclick="incrementQuantity('quantity2'); playAnimation('pizza-img', 'pizza-animation.gif');">+</button>
+                    </div>
                 </div>
                 
                 <div class="item" id="item3">
