@@ -13,7 +13,11 @@
                 <div class="item" id="item1">
                     <img src="burger.png" alt="" class="img" id="burger-img">
                     <p>burger - <b>600Р</b></p>
-                    <button class="btn" id="btn1" onclick="playAnimation('burger-img', 'burger.gif')">Добавить</button>
+                    <div class="quantity-control">
+                        <button class="btn" id="minusBtn1" onclick="decrementQuantity('quantity1')">-</button>
+                        <span id="quantity1">0</span>
+                        <button class="btn" id="btn1" onclick="incrementQuantity('quantity1'); playAnimation('burger-img', 'burger.gif');">+</button>
+                    </div>
                 </div>
                 
                 <div class="item" id="item2">
