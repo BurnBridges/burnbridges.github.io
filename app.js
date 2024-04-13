@@ -30,6 +30,7 @@ function updateTotalPrice() {
 }
 
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    let address = document.getElementById("address").value;
     let data = {
         items: items,
         totalPrice: calculateTotalPrice()
