@@ -10,7 +10,7 @@ let items = [];
 function toggleItem(btn, itemId, price) {
     let itemIndex = items.findIndex(item => item.id === itemId);
     if (itemIndex === -1) {
-        // Если товар не найден в корзине, добавляем его
+        // Если товар не найден в корзине, добавляем его с количеством 1
         items.push({ id: itemId, price: price, quantity: 1 });
         btn.classList.add('added-to-cart'); // Добавляем класс для стилизации кнопки при добавлении товара в корзину
     } else {
