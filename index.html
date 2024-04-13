@@ -10,10 +10,14 @@
     <div class="center">
         <div class="container">
             <div class="inner">
-                <div class="item" id="item1">
+                <div class="item" id="item2">
                     <img src="burger.png" alt="" class="img" id="burger-img">
-                    <p>burger - <b>600Р</b></p>
-                    <button class="btn" id="btn1" onclick="playAnimation('burger-img', 'burger.gif')">Добавить</button>
+                    <p>pizza - <b>450Р</b></p>
+                    <div class="quantity-control">
+                        <button class="minus-btn" id="minusBtn2" onclick="decrementQuantity('quantity2')">-</button>
+                        <span id="quantity2">0</span>
+                        <button class="plus-btn" id="plusBtn2" onclick="incrementQuantity('quantity2'); playAnimation('burger-img', 'burger.gif')">+</button>
+                    </div>
                 </div>
                 
                 <div class="item" id="item2">
