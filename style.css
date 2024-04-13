@@ -31,7 +31,7 @@ body {
 	text-align: center;
 }
 
-.btn {
+.btn, .quantity-control button {
 	display: inline-block;
 	padding: 10px 10px;
 	border: none;
@@ -45,14 +45,7 @@ body {
 }
 
 .added-to-cart {
-    display: inline-block;
-    padding: 10px 10px;
-    border: none;
     background: rgb(204, 49, 49);
-    border-radius: 10px;
-    color: #fff;
-    text-transform: uppercase;
-    font-weight: 700;
 }
 
 .btn:hover {
