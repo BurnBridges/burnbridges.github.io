@@ -21,18 +21,6 @@ function toggleItem(btn, itemId, price) {
     updateTotalPrice();
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("plusBtn1").addEventListener('click', function(){
-        incrementQuantity("quantity1");
-        updateTotalPrice();
-    });
-
-    document.getElementById("minusBtn1").addEventListener('click', function(){
-        decrementQuantity("quantity1");
-        updateTotalPrice();
-    });
-});
-
 function updateTotalPrice() {
     let totalPrice = calculateTotalPrice();
     if (totalPrice > 0) {
@@ -52,7 +40,7 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
 })
 
 function calculateTotalPrice() {
-    return items.reduce((total, item) => total + (item.price * item.quantity), 0);
+    return items.reduce((total, item) => total + item.price, 0);
 }
 
 document.getElementById("btn1").addEventListener('click', function(){
@@ -95,16 +83,3 @@ function playAnimation(imgId, animationSrc) {
     }, 3000); // 3000 миллисекунд = 3 секунды
 }
 
-function incrementQuantity(quantityId) {
-    let quantityElement = document.getElementById(quantityId);
-    let quantity = parseInt(quantityElement.innerText);
-    quantityElement.innerText = quantity + 1;
-}
-
-function decrementQuantity(quantityId) {
-    let quantityElement = document.getElementById(quantityId);
-    let quantity = parseInt(quantityElement.innerText);
-    if (quantity > 0) {
-        quantityElement.innerText = quantity - 1;
-    }
-}
