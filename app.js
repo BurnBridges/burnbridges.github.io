@@ -97,3 +97,10 @@ function decrementQuantity(quantityId) {
         updateTotalPrice(); // Обновляем общую сумму заказа при уменьшении количества
     }
 }
+
+// Добавляем обработчик события для кнопки "Готово"
+document.getElementById("submitAddressBtn").addEventListener('click', function() {
+    var address = document.getElementById("address").value;
+    // Отправляем адрес на сервер вместе с данными о заказе
+    sendDataWithAddress(address);
+});
