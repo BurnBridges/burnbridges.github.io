@@ -102,6 +102,12 @@ function decrementQuantity(quantityId) {
 // Добавляем обработчик события для кнопки "Готово"
 document.getElementById("submitAddressBtn").addEventListener('click', function() {
     var address = document.getElementById("address").value;
-    // Отправляем адрес на сервер вместе с данными о заказе
-    sendDataWithAddress(address);
+    var addressField = document.getElementById("address");
+    var addressText = document.createElement("p");
+    addressText.textContent = "Адрес доставки: " + address;
+    addressField.parentNode.replaceChild(addressText, addressField);
+    
+    // Скрыть текст "Введите ваш адрес"
+    var placeholderText = document.querySelector('label[for="address"]');
+    placeholderText.style.display = 'none';
 });
