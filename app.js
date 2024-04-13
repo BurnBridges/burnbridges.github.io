@@ -30,6 +30,7 @@ function updateTotalPrice() {
 }
 
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    let address = document.getElementById('address').value;
     let data = {
         items: items,
         totalPrice: calculateTotalPrice()
@@ -95,16 +96,4 @@ function decrementQuantity(quantityId) {
         quantityElement.innerText = quantity - 1;
         updateTotalPrice(); // Обновляем общую сумму заказа при уменьшении количества
     }
-}
-
-function confirmOrder() {
-    // Получаем введенный адрес клиента
-    let address = document.getElementById('address').value;
-
-    // Отправляем данные на сервер вместе с адресом
-    let data = {
-        items: items,
-        address: address
-    };
-    tg.sendData(JSON.stringify(data));
 }
