@@ -44,6 +44,19 @@ body {
 	transition: background .2s linear;
 }
 
+.added-to-cart {
+    display: inline-block;
+    padding: 10px 10px;
+    border: none;
+    background: rgb(204, 49, 49);
+    border-radius: 10px;
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    transform: background .2s linear;
+
+}
 
 .btn:hover {
 	background: lightgreen;
