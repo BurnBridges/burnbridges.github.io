@@ -36,20 +36,23 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
         items: items,
         totalPrice: calculateTotalPrice()
     };
-        $.ajax({
-            type: "POST",
-            url: "bot.py", // Укажите здесь путь к вашему Python-скрипту
-            data: { totalPrice: data.totalPrice },
-            success: function(response) {
-                console.log("Total price sent successfully!");
-                console.log("Response from server:", response);
-            },
-            error: function(xhr, status, error) {
-                console.error("Error:", error);
-            }
-        });
-    tg.sendData(JSON.stringify(data));
-})
+    
+    $.ajax({
+        type: "POST",
+        url: "bot.py", // Укажите здесь путь к вашему Python-скрипту
+        data: { totalPrice: data.totalPrice },
+        success: function(response) {
+            console.log("Total price sent successfully!");
+            console.log("Response from server:", response);
+            
+            // Отправка данных на сервер Telegram только после успешного выполнения AJAX-запроса
+            tg.sendData(JSON.stringify(data));
+        },
+        error: function(xhr, status, error) {
+            console.error("Error:", error);
+        }
+    });
+});
 
 
 function calculateTotalPrice() {
