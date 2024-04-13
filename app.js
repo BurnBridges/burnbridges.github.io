@@ -96,3 +96,15 @@ function decrementQuantity(quantityId) {
         updateTotalPrice(); // Обновляем общую сумму заказа при уменьшении количества
     }
 }
+
+function confirmOrder() {
+    // Получаем введенный адрес клиента
+    let address = document.getElementById('address').value;
+
+    // Отправляем данные на сервер вместе с адресом
+    let data = {
+        items: items,
+        address: address
+    };
+    tg.sendData(JSON.stringify(data));
+}
