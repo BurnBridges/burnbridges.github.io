@@ -21,14 +21,16 @@ function toggleItem(btn, itemId, price) {
     updateTotalPrice();
 }
 
-document.getElementById("plusBtn1").addEventListener('click', function(){
-    incrementQuantity("quantity1");
-    updateTotalPrice();
-});
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("plusBtn1").addEventListener('click', function(){
+        incrementQuantity("quantity1");
+        updateTotalPrice();
+    });
 
-document.getElementById("minusBtn1").addEventListener('click', function(){
-    decrementQuantity("quantity1");
-    updateTotalPrice();
+    document.getElementById("minusBtn1").addEventListener('click', function(){
+        decrementQuantity("quantity1");
+        updateTotalPrice();
+    });
 });
 
 function updateTotalPrice() {
