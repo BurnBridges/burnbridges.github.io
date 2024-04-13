@@ -40,7 +40,7 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
 })
 
 function calculateTotalPrice() {
-    return items.reduce((total, item) => total + item.price, 0);
+    return items.reduce((total, item) => total + (item.price * item.quantity), 0);
 }
 
 document.getElementById("btn1").addEventListener('click', function(){
@@ -81,4 +81,18 @@ function playAnimation(imgId, animationSrc) {
     setTimeout(function() {
         img.src = originalSrc; // Возвращаем изображение к первоначальному статусу
     }, 3000); // 3000 миллисекунд = 3 секунды
+}
+
+function incrementQuantity(quantityId) {
+    let quantityElement = document.getElementById(quantityId);
+    let quantity = parseInt(quantityElement.innerText);
+    quantityElement.innerText = quantity + 1;
+}
+
+function decrementQuantity(quantityId) {
+    let quantityElement = document.getElementById(quantityId);
+    let quantity = parseInt(quantityElement.innerText);
+    if (quantity > 0) {
+        quantityElement.innerText = quantity - 1;
+    }
 }
