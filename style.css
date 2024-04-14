@@ -51,3 +51,21 @@ body {
 .btn:hover {
 	background: lightgreen;
 }
+
+.blue-bar {
+	background-color: blue;
+	height: 35px;
+	width: 100%;
+	position: fixed; /* Закрепляем полоску вверху страницы */
+    top: 0; /* Располагаем полоску в самом верху страницы */
+    z-index: 999;
+}
+
+#savedAddressMessage {
+    color: white;
+    text-align: center;
+    margin: auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
