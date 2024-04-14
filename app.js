@@ -67,9 +67,23 @@ document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
 });
 
+// Глобальная переменная для отслеживания статуса анимации
+let isAnimating = false;
+
 function playAnimation(imgId, animationSrc) {
+    // Если анимация уже выполняется, игнорируем повторный вызов
+    if (isAnimating) {
+        return;
+    }
+
     // Находим элемент изображения
     const img = document.getElementById(imgId);
+
+    // Проверяем, воспроизведена ли уже анимация
+    if (img.src === animationSrc) {
+        // Анимация уже воспроизведена, выходим из функции
+        return;
+    }
 
     // Сохраняем текущий путь изображения для восстановления
     const originalSrc = img.src;
@@ -77,12 +91,21 @@ function playAnimation(imgId, animationSrc) {
     // Заменяем статическое изображение анимированным GIF
     img.src = animationSrc;
 
-    // Запускаем таймер для возврата к статическому изображению через 3 секунды (или сколько вам нужно)
-    setTimeout(function() {
-        img.src = originalSrc; // Возвращаем изображение к первоначальному статусу
-    }, 3000); // 3000 миллисекунд = 3 секунды
-}
+    // Устанавливаем статус анимации в true
+    isAnimating = true;
 
+    // Запускаем таймер для возврата к статическому изображению после завершения анимации
+    img.addEventListener('animationend', function animationEndHandler() {
+        // Возвращаем изображение к первоначальному статусу
+        img.src = originalSrc;
+
+        // Устанавливаем статус анимации в false
+        isAnimating = false;
+
+        // Удаляем обработчик события, чтобы он больше не вызывался
+        img.removeEventListener('animationend', animationEndHandler);
+    });
+}
 function incrementQuantity(quantityId) {
     let quantityElement = document.getElementById(quantityId);
     let quantity = parseInt(quantityElement.innerText);
