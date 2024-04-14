@@ -71,35 +71,16 @@ function playAnimation(imgId, animationSrc) {
     // Находим элемент изображения
     const img = document.getElementById(imgId);
 
-    // Получаем текущий путь изображения
-    const currentSrc = img.src;
+    // Сохраняем текущий путь изображения для восстановления
+    const originalSrc = img.src;
 
-    // Проверяем, выполняется ли уже анимация
-    if (currentSrc === animationSrc) {
-        // Анимация уже воспроизводится, выходим из функции
-        return;
-    }
+    // Заменяем статическое изображение анимированным GIF
+    img.src = animationSrc;
 
-    // Запускаем анимацию только если предыдущая завершилась
-    if (!img.classList.contains('animating')) {
-        // Добавляем класс для обозначения того, что анимация воспроизводится
-        img.classList.add('animating');
-
-        // Заменяем статическое изображение анимированным GIF
-        img.src = animationSrc;
-
-        // Добавляем обработчик события, который сработает после завершения анимации
-        img.addEventListener('animationend', function animationEndHandler() {
-            // Возвращаем изображение к первоначальному статусу
-            img.src = currentSrc;
-
-            // Удаляем класс, обозначающий воспроизведение анимации
-            img.classList.remove('animating');
-
-            // Удаляем обработчик события, чтобы он больше не вызывался
-            img.removeEventListener('animationend', animationEndHandler);
-        });
-    }
+    // Запускаем таймер для возврата к статическому изображению через 3 секунды (или сколько вам нужно)
+    setTimeout(function() {
+        img.src = originalSrc; // Возвращаем изображение к первоначальному статусу
+    }, 3000); // 3000 миллисекунд = 3 секунды
 }
 
 function incrementQuantity(quantityId) {
