@@ -7,11 +7,13 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="blue-bar" id="blueBar">
-        <p id="savedAddressMessage">Адрес сохранен</p>
-    </div> <!-- Синяя полоска -->
     <div class="center">
         <div class="container">
+            <div>
+                <label for="address">Введите ваш адрес:</label><br>
+                <input type="text" id="address" name="address"><br><br>
+                <button id="submitAddressBtn" class="btn">Готово</button>
+            </div>
             <div class="inner">
                 <div class="item" id="item1">
                     <img src="burger.png" alt="" class="img" id="burger-img">
@@ -71,11 +73,6 @@
                         <span id="quantity6">0</span>
                         <button class="btn" id="btn6" onclick="incrementQuantity('quantity6'); playAnimation('juice-img', 'juice-animation.gif');">+</button>
                     </div>
-                </div>
-                <div>
-                    <label for="address">Введите ваш адрес:</label><br>
-                    <input type="text" id="address" name="address"><br><br>
-                    <button id="submitAddressBtn" class="btn">Готово</button>
                 </div>
             </div>
         </div>
