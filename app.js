@@ -115,3 +115,9 @@ document.addEventListener('DOMContentLoaded', function() {
         itemsContainer.style.display = 'grid'; // Показываем товары при нажатии на кнопку
     });
 });
+
+// Определение функции для обработки нажатия кнопки
+function handleButtonClick(imageId, gifName) {
+    incrementQuantity('quantity1'); // Увеличить количество
+    playAnimation(imageId, gifName); // Воспроизвести анимацию
+}
