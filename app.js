@@ -80,7 +80,7 @@ function playAnimation(imgId, animationSrc) {
     // Запускаем таймер для возврата к статическому изображению через 3 секунды (или сколько вам нужно)
     setTimeout(function() {
         img.src = originalSrc; // Возвращаем изображение к первоначальному статусу
-    }, 3000); // 3000 миллисекунд = 3 секунды
+    }, 2600); // 3000 миллисекунд = 3 секунды
 }
 
 function incrementQuantity(quantityId) {
