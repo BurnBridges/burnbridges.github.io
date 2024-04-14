@@ -105,3 +105,15 @@ document.getElementById("submitAddressBtn").addEventListener('click', function()
     // Отправляем адрес на сервер вместе с данными о заказе
     sendDataWithAddress(address);
 });
+
+document.addEventListener('DOMContentLoaded', function() {
+    // Скрыть товары при загрузке страницы
+    var itemsContainer = document.getElementById("itemsContainer");
+    itemsContainer.style.display = 'none';
+
+    // Обработчик события для кнопки "Готово"
+    document.getElementById("submitAddressBtn").addEventListener('click', function() {
+        // Показать товары
+        itemsContainer.style.display = 'grid'; // или 'flex' в зависимости от вашего CSS
+    });
+});
