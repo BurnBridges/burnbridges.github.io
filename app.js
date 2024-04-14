@@ -105,24 +105,3 @@ document.getElementById("submitAddressBtn").addEventListener('click', function()
     // Отправляем адрес на сервер вместе с данными о заказе
     sendDataWithAddress(address);
 });
-
-// Получаем ссылку на синюю полоску и сообщение об адресе
-const blueBar = document.getElementById("blueBar");
-const savedAddressMessage = document.getElementById("savedAddressMessage");
-
-// Скрываем синюю полоску и сообщение об адресе
-blueBar.style.display = "none";
-
-// Получаем ссылку на кнопку "Готово"
-const submitAddressBtn = document.getElementById("submitAddressBtn");
-
-// Добавляем обработчик события для кнопки "Готово"
-submitAddressBtn.addEventListener("click", function() {
-    // Показываем синюю полоску и сообщение об адресе
-    blueBar.style.display = "block";
-
-    // Запускаем таймер для скрытия синей полоски через 1 секунду (1000 миллисекунд)
-    setTimeout(function() {
-        blueBar.style.display = "none";
-    }, 1000);
-});
