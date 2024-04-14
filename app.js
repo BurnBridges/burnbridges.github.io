@@ -107,13 +107,11 @@ document.getElementById("submitAddressBtn").addEventListener('click', function()
 });
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Скрыть товары при загрузке страницы
     var itemsContainer = document.getElementById("itemsContainer");
-    itemsContainer.style.display = 'none';
+    itemsContainer.style.display = 'none'; // Изначально скрываем товары
 
     // Обработчик события для кнопки "Готово"
     document.getElementById("submitAddressBtn").addEventListener('click', function() {
-        // Показать товары
-        itemsContainer.style.display = 'grid'; // или 'flex' в зависимости от вашего CSS
+        itemsContainer.style.display = 'grid'; // Показываем товары при нажатии на кнопку
     });
 });
