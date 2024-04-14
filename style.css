@@ -23,6 +23,7 @@ body {
 	display: none;
 }
 
+
 .img {
 	width: 100px;
     margin-bottom: -1px;
@@ -31,6 +32,8 @@ body {
 .item {
 	text-align: center;
 }
+
+
 
 .btn, .quantity-control button {
 	display: inline-block;
