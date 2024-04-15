@@ -3,7 +3,7 @@ body {
 	padding: 0;
 	font-size: 18px;
 	color: var(--tg-theme-text-color);
-	background: #fff;
+	background: var(--tg-theme-bg-color);
     text-align: center;
 }
 
@@ -22,7 +22,6 @@ body {
     grid-gap: 100px;
 }
 
-
 .img {
 	width: 100px;
     margin-bottom: -1px;
@@ -31,8 +30,6 @@ body {
 .item {
 	text-align: center;
 }
-
-
 
 .btn, .quantity-control button {
 	display: inline-block;
@@ -53,23 +50,4 @@ body {
 
 .btn:hover {
 	background: lightgreen;
-}
-
-.blue-bar {
-	background-color: #2AABEE;
-	height: 35px;
-	width: 100%;
-	position: fixed; /* Закрепляем полоску вверху страницы */
-    top: 0; /* Располагаем полоску в самом верху страницы */
-    z-index: 999;
-}
-
-#savedAddressMessage {
-    color: white;
-    text-align: center;
-    margin: auto;
-    position: absolute;
-    left: 0;
-    right: 0;
-	margin-top: 5px;
 }
