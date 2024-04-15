@@ -29,16 +29,18 @@ function updateTotalPrice() {
     }
 }
 
-tg.onEvent('mainButtonClicked', function(){
+Telegram.WebApp.onEvent('mainButtonClicked', function(){
+    let address = document.getElementById("address").value; // Получаем значение адреса из поля ввода
     let data = {
         items: items,
         totalPrice: calculateTotalPrice(),
+        address: address // Добавляем адрес в данные
     };
     tg.sendData(JSON.stringify(data)); // Отправляем данные на сервер
-});
+})
 
 function calculateTotalPrice() {
-    return items.reduce((total, item) => total + item.price * item.quantity, 0);
+    return items.reduce((total, item) => total + item.price * parseInt(document.getElementById(item.id).querySelector('.quantity-control span').innerText), 0);
 }
 
 document.getElementById("btn1").addEventListener('click', function(){
@@ -65,6 +67,22 @@ document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
 });
 
+function playAnimation(imgId, animationSrc) {
+    // Находим элемент изображения
+    const img = document.getElementById(imgId);
+
+    // Сохраняем текущий путь изображения для восстановления
+    const originalSrc = img.src;
+
+    // Заменяем статическое изображение анимированным GIF
+    img.src = animationSrc;
+
+    // Запускаем таймер для возврата к статическому изображению через 3 секунды (или сколько вам нужно)
+    setTimeout(function() {
+        img.src = originalSrc; // Возвращаем изображение к первоначальному статусу
+    }, 2600); // 3000 миллисекунд = 3 секунды
+}
+
 function incrementQuantity(quantityId) {
     let quantityElement = document.getElementById(quantityId);
     let quantity = parseInt(quantityElement.innerText);
@@ -79,4 +97,26 @@ function decrementQuantity(quantityId) {
         quantityElement.innerText = quantity - 1;
         updateTotalPrice(); // Обновляем общую сумму заказа при уменьшении количества
     }
+}
+
+// Добавляем обработчик события для кнопки "Готово"
+document.getElementById("submitAddressBtn").addEventListener('click', function() {
+    var address = document.getElementById("address").value;
+    // Отправляем адрес на сервер вместе с данными о заказе
+    sendDataWithAddress(address);
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    var itemsContainer = document.getElementById("itemsContainer");
+    itemsContainer.style.display = 'none'; // Изначально скрываем товары
+
+    // Обработчик события для кнопки "Готово"
+    document.getElementById("submitAddressBtn").addEventListener('click', function() {
+        itemsContainer.style.display = 'grid'; // Показываем товары при нажатии на кнопку
+    });
+});
+
+// Определение функции для обработки нажатия кнопки
+function handleButtonClick(imageId, gifName) {
+    incrementQuantity('quantity1'); // Увеличить количество
 }
