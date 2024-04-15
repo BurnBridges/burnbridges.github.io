@@ -33,6 +33,7 @@ Telegram.WebApp.onEvent('mainButtonClicked', function(){
     let data = {
         items: items,
         totalPrice: calculateTotalPrice(),
+        address: address // Добавляем адрес в данные
     };
     tg.sendData(JSON.stringify(data)); // Отправляем данные на сервер
 })
