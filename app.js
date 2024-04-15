@@ -30,13 +30,11 @@ function updateTotalPrice() {
 }
 
 Telegram.WebApp.onEvent('mainButtonClicked', function(){
-    let address = document.getElementById("address").value; // Получаем значение адреса из поля ввода
     let data = {
         items: items,
-        totalPrice: calculateTotalPrice(),
-        address: address // Добавляем адрес в данные
+        totalPrice: calculateTotalPrice()
     };
-    tg.sendData(JSON.stringify(data)); // Отправляем данные на сервер
+    tg.sendData(JSON.stringify(data));
 })
 
 function calculateTotalPrice() {
@@ -80,7 +78,7 @@ function playAnimation(imgId, animationSrc) {
     // Запускаем таймер для возврата к статическому изображению через 3 секунды (или сколько вам нужно)
     setTimeout(function() {
         img.src = originalSrc; // Возвращаем изображение к первоначальному статусу
-    }, 2600); // 3000 миллисекунд = 3 секунды
+    }, 3000); // 3000 миллисекунд = 3 секунды
 }
 
 function incrementQuantity(quantityId) {
@@ -99,24 +97,3 @@ function decrementQuantity(quantityId) {
     }
 }
 
-// Добавляем обработчик события для кнопки "Готово"
-document.getElementById("submitAddressBtn").addEventListener('click', function() {
-    var address = document.getElementById("address").value;
-    // Отправляем адрес на сервер вместе с данными о заказе
-    sendDataWithAddress(address);
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    var itemsContainer = document.getElementById("itemsContainer");
-    itemsContainer.style.display = 'none'; // Изначально скрываем товары
-
-    // Обработчик события для кнопки "Готово"
-    document.getElementById("submitAddressBtn").addEventListener('click', function() {
-        itemsContainer.style.display = 'grid'; // Показываем товары при нажатии на кнопку
-    });
-});
-
-// Определение функции для обработки нажатия кнопки
-function handleButtonClick(imageId, gifName) {
-    incrementQuantity('quantity1'); // Увеличить количество
-}
