@@ -29,17 +29,16 @@ function updateTotalPrice() {
     }
 }
 
-Telegram.WebApp.onEvent('mainButtonClicked', function(){
+tg.onEvent('mainButtonClicked', function(){
     let data = {
         items: items,
         totalPrice: calculateTotalPrice(),
-        address: address // Добавляем адрес в данные
     };
     tg.sendData(JSON.stringify(data)); // Отправляем данные на сервер
-})
+});
 
 function calculateTotalPrice() {
-    return items.reduce((total, item) => total + item.price * parseInt(document.getElementById(item.id).querySelector('.quantity-control span').innerText), 0);
+    return items.reduce((total, item) => total + item.price * item.quantity, 0);
 }
 
 document.getElementById("btn1").addEventListener('click', function(){
@@ -65,7 +64,6 @@ document.getElementById("btn5").addEventListener('click', function(){
 document.getElementById("btn6").addEventListener('click', function(){
     toggleItem(this, "item6" , 610);
 });
-
 
 function incrementQuantity(quantityId) {
     let quantityElement = document.getElementById(quantityId);
