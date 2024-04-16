@@ -28,8 +28,10 @@ body {
 }
 
 .item {
-	padding: 0px 10px; /* Добавляем отступы слева и справа по 20 пикселей */
-    text-align: center;
+	text-align: center;
+	margin-bottom: 20px;
+	margin-left: 5px;
+	margin-right: 5px;
 }
 
 .btn, .quantity-control button {
