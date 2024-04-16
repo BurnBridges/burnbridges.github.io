@@ -29,7 +29,9 @@ body {
 
 .item {
 	text-align: center;
-	margin-bottom: 20px;
+    margin-bottom: 20px;
+    padding: 0 20px; /* Добавляем отступы слева и справа */
+    box-sizing: border-box; /* Учитываем отступы внутри размеров элемента */
 }
 
 .btn, .quantity-control button {
