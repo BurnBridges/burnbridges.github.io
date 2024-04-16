@@ -28,8 +28,8 @@ body {
 }
 
 .item {
-	text-align: center;
-	margin-bottom: 20px; /* Добавляем немного пространства между карточками */
+	padding: 10px 100px; /* Добавляем отступы слева и справа по 20 пикселей */
+    text-align: center;
 }
 
 .btn, .quantity-control button {
